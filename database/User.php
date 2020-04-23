@@ -76,10 +76,11 @@ class User
 
 	public function searchUser($search)
 	{
-		$this->db->query('SELECT * FROM users WHERE username = :username OR email = :email');
-		$this->db->bind(':username', $search);
-		$this->db->bind(':email', $search);
-		$result = $this->db->single(PDO::FETCH_OBJ);
+		$this->db->query("SELECT * FROM users WHERE username LIKE :username OR email LIKE :email");
+		$this->db->bind(':username', '%'.$search.'%');
+		$this->db->bind(':email', '%'.$search.'%');
+		$result = $this->db->resultSet(PDO::FETCH_OBJ);
+		var_dump($result);
 		return $result;
 	}
 
