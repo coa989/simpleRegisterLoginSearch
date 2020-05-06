@@ -12,8 +12,8 @@ class Database {
     private $stmt;
     private $error;
 
-    public function __construct(){
-
+    public function __construct()
+    {
       $dsn = 'mysql:host='. $this->host. ';dbname='. $this->dbname;
       $options = [
           PDO::ATTR_PERSISTENT => true,
@@ -28,13 +28,17 @@ class Database {
       }
     }
 
-    public function query($sql){
+    public function query($sql)
+    {
       $this->stmt = $this->dbh->prepare($sql);
     }
 
-    public function bind($param, $value, $type = null){
-      if(is_null($type)){
-        switch(true){
+    public function bind($param, $value, $type = null)
+    {
+      if(is_null($type))
+      {
+        switch(true)
+        {
           case is_int($value):
             $type = PDO::PARAM_INT;
             break;
@@ -51,22 +55,25 @@ class Database {
       $this->stmt->bindValue($param, $value, $type);
     }
 
-    public function execute(){
+    public function execute()
+    {
       return $this->stmt->execute();
     }
 
-    public function resultSet(){
+    public function resultSet()
+    {
       $this->execute();
       return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function single(){
+    public function single()
+    {
       $this->execute();
     return $this->stmt->fetch(PDO::FETCH_OBJ);
    }
 
-   public function rowCount(){
+   public function rowCount()
+   {
      return $this->stmt->rowCount();
    }
-
 }

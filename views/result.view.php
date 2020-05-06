@@ -1,6 +1,7 @@
 <?php 
 session_start();
-include 'partials/header.php'; 
+include 'partials/header.php';
+if(!empty($_SESSION['result'])): 
 ?>
 <table class="table">
 	<thead>
@@ -22,4 +23,9 @@ include 'partials/header.php';
 			<?php endforeach; ?>
 	</tbody>
 </table>
-<?php include 'partials/footer.php'; ?>
+<?php else: ?>
+	<h3 class="text-center">No users found!</h3>
+<?php 
+endif;
+include 'partials/footer.php'; 
+?>

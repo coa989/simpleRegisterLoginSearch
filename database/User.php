@@ -31,7 +31,6 @@ class User
       		$hashed_password = $row->password;
       		if(password_verify($password, $hashed_password))
       		{
-        		session_start();
         		$_SESSION['user_id'] = $row->id;
         		$_SESSION['user_name'] = $row->username;
         		$_SESSION['user_email'] = $row->email;
@@ -80,8 +79,16 @@ class User
 		$this->db->bind(':username', '%'.$search.'%');
 		$this->db->bind(':email', '%'.$search.'%');
 		$result = $this->db->resultSet(PDO::FETCH_OBJ);
-		var_dump($result);
 		return $result;
+	}
+
+	public function logout()
+	{
+		session_start();
+		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);
+		unset($_SESSION['user_email']);
+		session_destroy();
 	}
 
 }

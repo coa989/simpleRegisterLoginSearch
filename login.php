@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$data['email_err'] = 'Please enter your email';
 	} else
 		{
-			if($user->findByEmail($_POST['email']))
+			if(!$user->findByEmail($_POST['email']))
 			{
 				$data['email_err'] = 'Email not found' ;
 			}
@@ -26,11 +26,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$data['password_err'] = 'Please enter your password';
 	} else
 		{
-			if($user->login($_POST['email'], $_POST['password'])){}
-				else
-					{
-						$data['password_err'] = 'Incorect password';
-					}
+			if(!$user->login($_POST['email'], $_POST['password']))
+			{
+				$data['password_err'] = 'Incorect password.';
+			}
+		}
+	if(empty($data['email_err']) && empty($data['password_err']))
+	{
+		$user->login($_POST['email'], $_POST['password']);
+	} else
+		{
+			$_SESSION['data'] = $data;
+			header('Location: views/login.view.php');
 		}
 } else
 	{
