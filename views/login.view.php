@@ -1,6 +1,13 @@
 <?php 
 session_start();
-include 'partials/header.php'; 
+include 'partials/header.php';
+if(!isset($_SESSION['data']))
+{
+	$_SESSION['data'] = [
+		'email_err' => '',
+		'password_err' => '',
+	];
+} 
 ?>
 
 <div class="container">

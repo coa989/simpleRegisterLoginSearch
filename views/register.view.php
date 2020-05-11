@@ -9,11 +9,11 @@ include 'partials/header.php';
 				<h5 class="card-title text-center">Create Account</h5>
 				<form action="../register.php" method="post">
 			 		<div class="form-label-group">
-						<input class="form-control <?=(!empty($_SESSION['data']['username_err'])) ? 'is-invalid' : ''; ?>" type="text" name="username" placeholder="Username">
+						<input class="form-control <?=(!empty($_SESSION['data']['username_err'])) ? 'is-invalid' : ''; ?>" type="text" name="username" placeholder="Username" value="<?= (empty($_SESSION['data']['username'])) ? '' : $_SESSION['data']['username']; ?>">
 						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['username_err'])) ? $_SESSION['data']['username_err'] : ''; ?></span>
 					</div>
 					<div class="form-label-group">
-						<input class="form-control <?=(!empty($_SESSION['data']['email_err'])) ? 'is-invalid' : ''; ?>" type="email" name="email" placeholder="Email">
+						<input class="form-control <?=(!empty($_SESSION['data']['email_err'])) ? 'is-invalid' : ''; ?>" type="email" name="email" placeholder="Email" value="<?= (empty($_SESSION['data']['email'])) ? '' : $_SESSION['data']['email']; ?>">
 						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['email_err'])) ? $_SESSION['data']['email_err'] : ''; ?></span>
 					</div>
 					<div class="form-label-group">
