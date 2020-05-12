@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'database/User.php';
+require 'classes/User.php';
 $user = new User;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')

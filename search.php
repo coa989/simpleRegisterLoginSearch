@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once 'database/User.php';
+require_once 'classes/User.php';
 $user = new User;
 $result = $user->searchUser($_GET['search']);
 if(!empty($_GET['search']))
