@@ -24,7 +24,7 @@ if(!empty($_SESSION['result'])):
 	</tbody>
 </table>
 <?php else: ?>
-	<h3 class="text-center">No users found!</h3>
+	<h5 class="card-title text-center mt-3">No users found!</h5>
 <?php 
 endif;
 include 'partials/footer.php'; 
