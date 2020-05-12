@@ -23,4 +23,5 @@ if(isset($_SESSION['user_id'])):
 else:
 	header('Location: login.view.php');
 endif;
-include 'partials/footer.php'; ?>
+include 'partials/footer.php'; 
+?>
