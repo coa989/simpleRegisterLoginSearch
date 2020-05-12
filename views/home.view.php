@@ -10,7 +10,8 @@ if(isset($_SESSION['user_id'])):
 				<h5 class="card-title text-center">Search Users</h5>
 				<form action="/search.php" method="get">
 					<div class="form-label-group">
-						<input type="text" name="search" class="form-control">
+						<input type="text" name="search" class="form-control <?= (!empty($_SESSION['err_msg'])) ? 'is-invalid' : ''; ?>">
+						<span class="invalid-feedback"><?= $_SESSION['err_msg']; ?></span>
 						<button class="btn btn-dark btn-block text-uppercase mt-1" type="submit">Search</button>
 					</div>
 				</form>
