@@ -1,6 +1,15 @@
 <?php 
 session_start();
 include 'partials/header.php'; 
+if(!isset($_SESSION['data']))
+{
+	$_SESSION['data'] = [
+		'username_err' => '',
+		'email_err' => '',
+		'password_err' => '',
+		'confirm_password_err' => ''
+	];
+} 
 ?>
 <div class="container">
 	<div class="row">
@@ -10,19 +19,19 @@ include 'partials/header.php';
 				<form action="../register.php" method="post">
 			 		<div class="form-label-group">
 						<input class="form-control <?=(!empty($_SESSION['data']['username_err'])) ? 'is-invalid' : ''; ?>" type="text" name="username" placeholder="Username" value="<?= (empty($_SESSION['data']['username'])) ? '' : $_SESSION['data']['username']; ?>">
-						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['username_err'])) ? $_SESSION['data']['username_err'] : ''; ?></span>
+						<span class="invalid-feedback"><?= $_SESSION['data']['username_err']; ?></span>
 					</div>
 					<div class="form-label-group">
 						<input class="form-control <?=(!empty($_SESSION['data']['email_err'])) ? 'is-invalid' : ''; ?>" type="email" name="email" placeholder="Email" value="<?= (empty($_SESSION['data']['email'])) ? '' : $_SESSION['data']['email']; ?>">
-						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['email_err'])) ? $_SESSION['data']['email_err'] : ''; ?></span>
+						<span class="invalid-feedback"><?= $_SESSION['data']['email_err']; ?></span>
 					</div>
 					<div class="form-label-group">
 						<input class="form-control <?=(!empty($_SESSION['data']['password_err'])) ? 'is-invalid' : ''; ?>" type="password" name="password" placeholder="Password">
-						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['password_err'])) ? $_SESSION['data']['password_err'] : ''; ?></span>
+						<span class="invalid-feedback"><?= $_SESSION['data']['password_err']; ?></span>
 					</div>
 					<div class="form-label-group">
 						<input class="form-control <?=(!empty($_SESSION['data']['confirm_password_err'])) ? 'is-invalid' : ''; ?>" type="password" name="confirm_password" placeholder="Confirm Password">
-						<span class="invalid-feedback"><?=(!empty($_SESSION['data']['confirm_password_err'])) ? $_SESSION['data']['confirm_password_err'] : ''; ?></span>
+						<span class="invalid-feedback"><?= $_SESSION['data']['confirm_password_err']; ?></span>
 					</div>
 					<button class="btn btn-dark btn-block text-uppercase" type="submit">Register</button>
 					<hr class="my-4">
