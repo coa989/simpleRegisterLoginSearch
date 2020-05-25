@@ -26,18 +26,15 @@ class User
    	 	$this->db->execute();
     	$row = $this->db->single(PDO::FETCH_OBJ);
 
-    	if($row)
-    	{
+    	if($row){
       		$hashed_password = $row->password;
-      		if(password_verify($password, $hashed_password))
-      		{
+      		if(password_verify($password, $hashed_password)){
         		$_SESSION['user_id'] = $row->id;
         		$_SESSION['user_name'] = $row->username;
         		$_SESSION['user_email'] = $row->email;
         		header('Location: views/home.view.php');
         		return $row;
-      		} else 
-      			{
+      		} else{
         			return false;
       			}
     	}
@@ -49,11 +46,9 @@ class User
 		$this->db->bind(':email', $email);
 		$this->db->execute();
 
-		if($this->db->rowCount() > 0)
-		{
+		if($this->db->rowCount() > 0){
 			return true;
-		} else
-			{
+		} else{
 				return false;
 			}
 	}
@@ -64,11 +59,9 @@ class User
 		$this->db->bind(':username', $username);
 		$this->db->execute();
 
-		if($this->db->rowCount() > 0)
-		{
+		if($this->db->rowCount() > 0){
 			return true;
-		} else
-			{
+		} else{
 				return false;
 			}
 	}
