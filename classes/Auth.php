@@ -79,7 +79,7 @@ class Auth {
 			    $data[$empty_value_err] = 'Please enter your ' .$empty_value;
 
 		        $_SESSION['data'] = $data;
-		        header('Location: views/login.view.php');
+		        die(header('Location: views/login.view.php'));
 			}
 
 			if(!$this->user->findByEmail($_POST['email'])){
