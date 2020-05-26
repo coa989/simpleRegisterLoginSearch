@@ -1,5 +1,6 @@
 <?php
-require 'config/config.php';
+define('__ROOT__', dirname(dirname(__FILE__)));
+require __ROOT__ . '/config/config.php';
 
 class Database {
 
