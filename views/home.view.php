@@ -7,14 +7,14 @@ if(isset($_SESSION['user_id'])):
 	<div class="row">
 		<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 			<div class="card-body">
-				<h5 class="card-title text-center">Search Users</h5>
-				<form action="/search.php" method="get">
-					<div class="form-label-group">
-						<input type="text" name="search" class="form-control <?= (!empty($_SESSION['err_msg'])) ? 'is-invalid' : ''; ?>">
-						<span class="invalid-feedback"><?= !empty($_SESSION['err_msg']) ? $_SESSION['err_msg'] : ''; ?></span>
-						<button class="btn btn-dark btn-block text-uppercase mt-1" type="submit">Search</button>
-					</div>
-				</form>
+				<h5 class="card-title text-center">Users:</h5>
+				<?php foreach($_SESSION['users'] as $user): ?>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<a href="admin/show_user.php?id=<?= $user->id; ?>"><?= $user->username; ?></a>
+						</li>
+					</ul>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
