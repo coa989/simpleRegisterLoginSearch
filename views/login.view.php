@@ -1,13 +1,16 @@
 <?php 
 session_start();
 include 'partials/header.php';
-if(!isset($_SESSION['data']))
-{
+if(!isset($_SESSION['data'])){
 	$_SESSION['data'] = [
 		'email_err' => '',
 		'password_err' => '',
 	];
 } 
+
+if (isset($_SESSION['user_id'])) {
+	header('Location: home.view.php');
+}
 ?>
 
 <div class="container">
