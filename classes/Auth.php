@@ -1,13 +1,13 @@
 <?php 
-require_once 'User.php';
+require_once 'Database.php';
 
 class Auth {
 
-	private $user;
+	private $db;
 
 	function __construct()
 	{
-		$this->user = new User;
+		$this->db = new Database;
 	}
 
 	public function validateRegister($data)
@@ -25,7 +25,7 @@ class Auth {
 			];
 		   	if(empty($_POST['username'])){
 		   		$data['username_err'] = 'Please enter username';
-		   	} elseif ($this->user->findByUsername($_POST['username'])){
+		   	} elseif ($this->findByUsername($_POST['username'])){
 		   		$data['username_err'] = 'Username already used';
 		   		}
 	   	
@@ -34,7 +34,7 @@ class Auth {
 		  	} elseif(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 		     		$data['email_err'] = 'Please use valid email address';
 		  		} else{
-		    			if($this->user->findByEmail($_POST['email'])){
+		    			if($this->findByEmail($_POST['email'])){
 		    				$data['email_err'] = 'Email address already used';
 		    			}
 		    		}
@@ -53,7 +53,7 @@ class Auth {
 			
 			if(empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
 				$hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
-				$this->user->register($data['username'], $data['email'], $hashed_password);	
+				$this->register($data['username'], $data['email'], $hashed_password);	
 			} else{
 					$_SESSION['data'] = $data;
 					header('Location: views/register.view.php');
@@ -82,13 +82,13 @@ class Auth {
 		        die(header('Location: views/login.view.php'));
 			}
 
-			if(!$this->user->findByEmail($_POST['email'])){
+			if(!$this->findByEmail($_POST['email'])){
 		        $data['email_err'] = 'Incorect email.';
 		        $_SESSION['data'] = $data;
 		        header('Location: views/login.view.php');
 		    }
 
-			if(!$this->user->login($_POST['email'], $_POST['password'])){
+			if(!$this->login($_POST['email'], $_POST['password'])){
 		        $data['password_err'] = 'Incorect password.';
 		        $_SESSION['data'] = $data;
 		        header('Location: views/login.view.php');
@@ -96,4 +96,72 @@ class Auth {
 		}	
 
 	}
+
+	public function register($username, $email, $password)
+	{
+		$this->db->query("INSERT INTO users(username, email, password) VALUES(:username, :email, :password)");
+		$this->db->bind(':username', $username);
+		$this->db->bind(':email', $email);
+		$this->db->bind(':password', $password);
+		$this->db->execute();
+		header('Location: views/login.view.php');
+	}
+
+	public function login($email, $password)
+	{
+		$this->db->query('SELECT * FROM users WHERE email = :email');
+    	$this->db->bind(':email', $email);
+   	 	$this->db->execute();
+    	$row = $this->db->single(PDO::FETCH_OBJ);
+
+    	if($row){
+      		$hashed_password = $row->password;
+      		if(password_verify($password, $hashed_password)){
+        		$_SESSION['user_id'] = $row->id;
+        		$_SESSION['admin'] = $row->admin;
+        		$_SESSION['user_name'] = $row->username;
+        		$_SESSION['user_email'] = $row->email;
+        		header('Location: index.php');
+        		return $row;
+      		} else{
+        			return false;
+      			}
+    	}
+	}
+
+	public function findByEmail($email)
+	{
+		$this->db->query('SELECT * FROM users WHERE email = :email');
+		$this->db->bind(':email', $email);
+		$this->db->execute();
+
+		if($this->db->rowCount() > 0){
+			return true;
+		} else{
+				return false;
+			}
+	}
+
+	public function findByUsername($username)
+	{
+		$this->db->query('SELECT * FROM users WHERE username = :username');
+		$this->db->bind(':username', $username);
+		$this->db->execute();
+
+		if($this->db->rowCount() > 0){
+			return true;
+		} else{
+				return false;
+			}
+	}
+
+	public function logout()
+	{
+		session_start();
+		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);
+		unset($_SESSION['user_email']);
+		session_destroy();
+	}
+
 }
