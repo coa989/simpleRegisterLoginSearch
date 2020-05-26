@@ -1,5 +1,5 @@
 <?php 
-require_once 'classes/User.php';
-$user = (new User)->logout();
+require_once 'classes/Auth.php';
+$user = (new Auth)->logout();
 header('Location: /index.php');
 ?>
