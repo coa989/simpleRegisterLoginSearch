@@ -14,6 +14,11 @@
 		      		<li class="nav-item">
 		          		<a class="nav-link" href="/views/home.view.php">Home</a>
 		        	</li>
+		        </ul>
+	         	<ul class="navbar-nav mr-0">
+	         		<form class="form-inline my-2 my-md-0" method="get" action="/search.php">
+          				<input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" required>
+        			</form>
 		        	<li class="nav-item dropdown">
         				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         					<?= $_SESSION['user_name']; ?>
