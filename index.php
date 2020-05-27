@@ -1,4 +1,5 @@
 <?php
+// require_once 'vendor/autoload.php';
 session_start();
 if(isset($_SESSION['user_id'])){
 	require_once 'classes/User.php';
@@ -8,3 +9,4 @@ if(isset($_SESSION['user_id'])){
 } else {
 	header('Location: /views/login.view.php');
  }
+
