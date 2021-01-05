@@ -32,13 +32,48 @@ class User
         		$_SESSION['user_id'] = $row->id;
         		$_SESSION['user_name'] = $row->username;
         		$_SESSION['user_email'] = $row->email;
-        		header('Location: views/home.view.php');
+                $_SESSION['role'] = $row->role;
+        		if($_SESSION['role'] == 'admin'){
+                    header('Location: admin.php');
+                } else{
+                    header('Location: views/home.view.php');
+                }
         		return $row;
       		} else{
         			return false;
       			}
     	}
 	}
+
+    public function showAll()
+    {
+        $this->db->query('SELECT * FROM users');
+        $result = $this->db->resultSet(PDO::FETCH_OBJ);
+        return $result;
+    }
+
+    public function show($id)
+    {
+        $this->db->query('SELECT * FROM users where id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        $user = $this->db->single(PDO::FETCH_OBJ);
+        return $user;
+    }
+
+    public function update($data)   
+    {   
+        $id = $data['id'];
+        $this->db->query("UPDATE users SET username = :username, email = :email, password = :password, role = :role, created_at = :created_at WHERE id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->bind(':username', $data['username']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':role', $data['role']);
+        $this->db->bind(':created_at', $data['created_at']);
+        $this->db->execute();
+        header('Location: views/admin.view.php');
+    }
 
 	public function findByEmail($email)
 	{
