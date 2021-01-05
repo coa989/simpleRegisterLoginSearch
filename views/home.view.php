@@ -24,4 +24,5 @@ else:
 	header('Location: login.view.php');
 endif;
 include 'partials/footer.php'; 
+
 ?>
