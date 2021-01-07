@@ -12,7 +12,7 @@
 		  	<?php if(isset($_SESSION['user_id'])):?>
 	         	<ul class="navbar-nav mr-auto">
 		      		<li class="nav-item">
-		          		<a class="nav-link" href="/views/home.view.php">Home</a>
+		          		<a class="nav-link" href="<?= ($_SESSION['role'] == 'admin') ? '/views/admin.view.php' : '/views/home.view.php' ?>">Home</a>
 		        	</li>
 		        	<li class="nav-item dropdown">
         				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
