@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if($_SESSION['role'] != 'admin'){
+    header('Location: home.view.php');
+}
 include 'partials/header.php';
 ?>
 <table class="table">
@@ -24,14 +27,19 @@ include 'partials/header.php';
             <td><div class="buttton-group" role="group" aria-label="Basic example">
                 <a href="../show.php?id=<?= $user->id; ?>"><button type="button" class="btn btn-primary">Show</button></a>
                 <a href="../edit.php?id=<?= $user->id; ?>"><button type="button" class="btn btn-secondary">Edit</button></a>
-                <a href=""><button type="button" class="btn btn-danger">Delete</button></a>
+                <a href="../delete.php?id=<?= $user->id; ?>"><button type="button" class="btn btn-danger">Delete</button></a>
             </div></td>
         </tr>
             <?php endforeach; ?>
     </tbody>
 </table>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <a href="create.view.php"><button type="button" class="btn btn-success btn-lg btn-block">Create New User</button></a>
+        </div>
+    </div>
+</div>
 <?php
 include 'partials/footer.php';
  ?>
