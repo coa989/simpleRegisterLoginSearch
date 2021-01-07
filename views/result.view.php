@@ -4,9 +4,11 @@ include 'partials/header.php';
 if(!empty($_SESSION['result'])): 
 ?>
 		<?php foreach($_SESSION['result'] as $user): ?>
-	<ul>
-		<li><a href="../show.php?id=<?= $user->id ?>"><?= $user->username; ?></a></li>
-	</ul>
+			<div class="container">
+				<ul class="list-group">
+					<li class="list-group-item"><a href="../show.php?id=<?= $user->id ?>"><?= $user->username; ?></a></li>
+				</ul>
+		    </div>
 			<?php endforeach; ?>
 
 <?php else: ?>
