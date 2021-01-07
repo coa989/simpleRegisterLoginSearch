@@ -13,7 +13,7 @@ include 'partials/header.php';
         </tr>
     </thead>
     <tbody>
-        <a href="result.view.php"><button type="button" class="btn btn-secondary">Back</button></a>
+        <a href="<?= ($_SESSION['role'] == 'admin') ? 'admin.view.php' : 'result.view.php' ?>"><button type="button" class="btn btn-secondary">Back</button></a>
         <tr>
             <th scope="row"><?= $_SESSION['user']->id; ?></th>
             <td><?= $_SESSION['user']->username; ?></td>
