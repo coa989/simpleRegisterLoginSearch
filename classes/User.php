@@ -72,7 +72,15 @@ class User
         $this->db->bind(':role', $data['role']);
         $this->db->bind(':created_at', $data['created_at']);
         $this->db->execute();
-        header('Location: views/admin.view.php');
+        header('Location: admin.php');
+    }
+
+    public function delete($id)
+    {
+        $this->db->query("DELETE FROM users WHERE id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        header('Location: admin.php');
     }
 
 	public function findByEmail($email)
