@@ -5,7 +5,7 @@ include 'partials/header.php';
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <a href="admin.view.php"><button class="btn btn-secondary">Back</button></a>
+            <a href="admin.view.php"><button class="btn btn-secondary mb-1 mt-1">Back</button></a>
             <div class="card-body">
                 <h5 class="card-title text-center">Edit Account</h5>
                 <form action="../update.php" method="post">
